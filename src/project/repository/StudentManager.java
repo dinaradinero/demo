@@ -12,7 +12,7 @@ public class StudentManager {
 
     private Map<Integer, Student> studentMap;
     private Integer idCounter = 1;
-    List<Course> allCourses = new ArrayList<>();
+    private List<Course> allCourses = new ArrayList<>();
 
     public StudentManager() {
         this.studentMap = new HashMap<>();
@@ -36,19 +36,33 @@ public class StudentManager {
 
     public Student findStudentById(Integer studentId) {
         Student studentSearch = studentMap.get(studentId);
-        System.out.println(studentSearch);
         return studentSearch;
     }
 
     public Course addCourse(String courseName) {
+        Course existingCourse = findCourse(courseName);
+        if (existingCourse != null) {
+            System.out.println("Курс с таким именем уже существует: " + existingCourse);
+            return existingCourse;
+        }
+
         Course newCourse = new Course(courseName);
         allCourses.add(newCourse);
         return newCourse;
     }
 
+    public Course findCourse (String courseName) {
+        for (Course course : allCourses) {
+           if (course.getCourseName().equalsIgnoreCase(courseName)) {
+               return course;
+           }
+        }
+        return null;
+    }
+
     public boolean addCourseToStudent(Integer studentId, String courseName) {
         if (courseValidation(courseName)) {
-            Course newCourse = addCourse(courseName);
+            Course newCourse = findCourse(courseName);
             Student newStudent = studentMap.get(studentId);
             newCourse.getEnrolledStudents().add(newStudent);
             return true;

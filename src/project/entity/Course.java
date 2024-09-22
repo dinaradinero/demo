@@ -21,6 +21,10 @@ public class Course {
         return enrolledStudents;
     }
 
+    public void setEnrolledStudents(List<Student> enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -28,5 +32,4 @@ public class Course {
                 ", enrolledStudents=" + enrolledStudents +
                 '}';
     }
-
 }

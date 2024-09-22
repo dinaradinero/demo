@@ -7,12 +7,12 @@ import project.repository.StudentManager;
 public class StudentService {
     StudentManager manager = new StudentManager();
 
-    public Integer addNewStudent (String name, String surname, int year) {
+    public Integer addNewStudent (String name, String surname) {
 
-        if (!validationStudent(name,surname,year)) {
+        if (!validationStudent(name,surname)) {
             return null;
         }
-        Student newStudent = new Student(name, surname, year);
+        Student newStudent = new Student(name, surname);
 
         return manager.addStudent(newStudent);
     }
@@ -64,12 +64,11 @@ public class StudentService {
         return manager.printAllStudentsByCourse(courseName);
     }
 
-    private boolean validationStudent (String name, String surname, int year) {
+    private boolean validationStudent (String name, String surname) {
         if (name.isBlank()) return false;
         if (surname.isBlank()) return false;
         if (name.length() < 2) return false;
         if (surname.length() < 2) return false;
-        if (year < 1900 || year > 2024) return false;
 
         return true;
     }
